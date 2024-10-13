@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../api";
+import RecommendationList from "../components/RecommendationList.jsx";
 
 function Home() {
     const [recommendations, setRecommendations] = useState([]);
@@ -48,9 +49,6 @@ function Home() {
 
     return (
         <div>
-            <div>
-                <h2>Recommendations</h2>
-            </div>
             <h2>Create a recommendation</h2>
             <form onSubmit={createRecommendation}>
                 <label>Seed Type:</label>
@@ -94,6 +92,10 @@ function Home() {
                 <br />
                 <input type="submit" value="Submit"></input>
             </form>
+            <div>
+                <h2>Recommendations</h2>
+                <RecommendationList recommendations={recommendations} />
+            </div>
         </div>
     );
 }
