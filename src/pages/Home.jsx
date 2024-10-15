@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../api";
-import RecommendationList from "../components/RecommendationList.jsx";
+import RecommendationItem from "../components/RecommendationItem.jsx";
 
 function Home() {
     const [recommendations, setRecommendations] = useState([]);
@@ -94,7 +94,14 @@ function Home() {
             </form>
             <div>
                 <h2>Recommendations</h2>
-                <RecommendationList recommendations={recommendations} />
+                {recommendations.map((recommendation) => (
+                    <div key={recommendation.id}>
+                        <RecommendationItem
+                            recommendation={recommendation}
+                            onDelete={() => deleteRecommendation(recommendation.id)}
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );
