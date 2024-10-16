@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../api";
 import RecommendationItem from "../components/RecommendationItem.jsx";
+import "../styles/Default.css";
+import RangeSlider from "../components/RangeSlider.jsx";
 
 function Home() {
     const [recommendations, setRecommendations] = useState([]);
@@ -48,57 +50,76 @@ function Home() {
     };
 
     return (
-        <div>
-            <h2>Create a recommendation</h2>
-            <form onSubmit={createRecommendation}>
-                <label>Seed Type:</label>
-                <br />
-                <select
-                    id="seedType"
-                    name="seedType"
-                    required
-                    value={seedType}
-                    onChange={(e) => setSeedType(e.target.value)}
-                >
-                    <option value="" disabled>Select a seed type</option>
-                    <option value="track">Track</option>
-                    <option value="artist">Artist</option>
-                    <option value="genre">Genre</option>
-                </select>
-                <label>Seed:</label>
-                <br />
-                <input
-                    type="text"
-                    id="seed"
-                    name="seed"
-                    required
-                    value={seed}
-                    onChange={(e) => setSeed(e.target.value)}
-                />
-                <label>Number of results:</label>
-                <br />
-                <input
-                    type="range"
-                    id="numResults"
-                    name="numResults"
-                    min={1}
-                    max={10}
-                    step={1}
-                    required
-                    value={numResults}
-                    onChange={(e) => setNumResults(parseInt(e.target.value))}
-                />
-                <h4>Number of Results: {numResults}</h4>
-                <br />
-                <input type="submit" value="Submit"></input>
+        <div className="container max-w-3xl mx-auto px-4 py-8">
+            <h2 className="text-3xl font-bold mb-6">Create a Recommendation</h2>
+            <form onSubmit={createRecommendation} className="space-y-6">
+                {/* Seed Type */}
+                <div>
+                    <label
+                        htmlFor="seedType"
+                        className="block text-lg font-medium text-gray-700"
+                    >
+                        Seed Type:
+                    </label>
+                    <select
+                        id="seedType"
+                        name="seedType"
+                        required
+                        value={seedType}
+                        onChange={(e) => setSeedType(e.target.value)}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                        <option value="" disabled>
+                            Select a seed type
+                        </option>
+                        <option value="track">Track</option>
+                        <option value="artist">Artist</option>
+                        <option value="genre">Genre</option>
+                    </select>
+                </div>
+
+                {/* Seed */}
+                <div>
+                    <label
+                        htmlFor="seed"
+                        className="block text-lg font-medium text-gray-700"
+                    >
+                        Seed:
+                    </label>
+                    <input
+                        type="text"
+                        id="seed"
+                        name="seed"
+                        required
+                        value={seed}
+                        onChange={(e) => setSeed(e.target.value)}
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="SongName/ArtistName/Genre"
+                    />
+                </div>
+
+                {/* Number of Results */}
+                <RangeSlider numResults={numResults} setNumResults={setNumResults}/>
+
+                {/* Submit Button */}
+                <div>
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-green-300"
+                    />
+                </div>
             </form>
-            <div>
-                <h2>Recommendations</h2>
+
+            <div className="container mx-auto p-4">
+            <h2 className="text-3xl font-bold mb-6 mt-10">Recommendations</h2>
                 {recommendations.map((recommendation) => (
                     <div key={recommendation.id}>
                         <RecommendationItem
                             recommendation={recommendation}
-                            onDelete={() => deleteRecommendation(recommendation.id)}
+                            onDelete={() =>
+                                deleteRecommendation(recommendation.id)
+                            }
                         />
                     </div>
                 ))}
