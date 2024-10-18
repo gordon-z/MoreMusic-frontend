@@ -47,7 +47,7 @@ function RecommendationItem({ recommendation, onDelete }) {
                                 href={track.track_uri}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-500 hover:text-blue-700"
+                                className="text-green-500 hover:text-green-700"
                             >
                                 Listen on Spotify
                             </a>

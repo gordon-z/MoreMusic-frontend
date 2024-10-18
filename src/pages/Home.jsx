@@ -117,7 +117,7 @@ function Home() {
                     <input
                         type="submit"
                         value="Submit"
-                        className="w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-green-300"
+                        className="w-full bg-lime-600 hover:bg-lime-700 active:bg-lime-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-green-300"
                     />
                 </div>
             </form>

@@ -22,8 +22,8 @@ function Form({ route, method, setIsAuthorized }) {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
 
-                setIsAuthorized(true)
-                
+                setIsAuthorized(true);
+
                 navigate("/");
             } else {
                 navigate("/login");
@@ -67,7 +67,7 @@ function Form({ route, method, setIsAuthorized }) {
                     className={`w-full flex items-center justify-center px-6 py-3 text-white font-semibold rounded-lg transition-colors ${
                         loading
                             ? "bg-gray-300 cursor-not-allowed"
-                            : "bg-blue-500 hover:bg-blue-700"
+                            : "bg-lime-600 hover:bg-lime-700"
                     }`}
                     disabled={loading} // Disable button while loading
                 >
@@ -80,9 +80,8 @@ function Form({ route, method, setIsAuthorized }) {
                         "Submit"
                     )}
                 </button>
-            </form> 
+            </form>
         </div>
-        
     );
 }
 

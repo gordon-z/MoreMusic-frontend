@@ -14,11 +14,11 @@ function NavBar({ isAuthorized, setIsAuthorized }) {
     }
 
     return (
-        <nav className="bg-gray-800 p-4">
+        <nav className="bg-lime-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <div>
                     <Link to="/" className="text-white text-lg font-bold">
-                        Home
+                        MoreMusic
                     </Link>
                 </div>
                 <div className="space-x-4">
