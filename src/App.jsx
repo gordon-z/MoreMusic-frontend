@@ -1,42 +1,94 @@
-import react from "react"
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Home from "./pages/Home"
-import NotFound from "./pages/NotFound"
-import ProtectedRoute from "./components/ProtectedRoute"
+import react from "react";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import api from "./api";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import NavBar from "./components/NavBar";
+import { REFRESH_TOKEN, ACCESS_TOKEN } from "./constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Login from "./pages/Login";
 
-function Logout() {
-  localStorage.clear()
-  return <Navigate to="/login" />
-}
+// function Logout() {
+//     localStorage.clear();
+//     return <Navigate to="/login" />;
+// }
 
 function RegisterAndLogout() {
-  localStorage.clear()
-  return <Register />
+    localStorage.clear();
+    return <Register />;
 }
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route 
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
+    const [isAuthorized, setIsAuthorized] = useState(null);
+
+    useEffect(() => {
+        auth().catch(() => setIsAuthorized(false));
+    }, []);
+
+    const refreshToken = async () => {
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        try {
+            const res = await api.post("/api/token/refresh/", {
+                refresh: refreshToken,
+            });
+            if (res.status === 200) {
+                localStorage.setItem(ACCESS_TOKEN, res.data.access);
+                setIsAuthorized(true);
+            } else {
+                setIsAuthorized(false);
             }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+        } catch (error) {
+            console.log(error);
+            setIsAuthorized(false);
+        }
+    };
+
+    const auth = async () => {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) {
+            setIsAuthorized(false);
+            return;
+        }
+        const decoded = jwtDecode(token);
+        const tokenExpiration = decoded.exp;
+        const now = Date.now() / 1000;
+
+        if (tokenExpiration < now) {
+            await refreshToken();
+        } else {
+            setIsAuthorized(true);
+        }
+    };
+
+    return (
+        <>
+            <BrowserRouter>
+                <NavBar isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute isAuthorized={isAuthorized}>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={<Login setIsAuthorized={setIsAuthorized} />}
+                    />
+                    <Route path="/register" element={<RegisterAndLogout />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </BrowserRouter>
+            <ToastContainer />
+        </>
+    );
 }
 
-export default App
+export default App;

@@ -3,6 +3,7 @@ import api from "../api";
 import RecommendationItem from "../components/RecommendationItem.jsx";
 import "../styles/Default.css";
 import RangeSlider from "../components/RangeSlider.jsx";
+import { toast } from "react-toastify";
 
 function Home() {
     const [recommendations, setRecommendations] = useState([]);
@@ -21,17 +22,17 @@ function Home() {
                 setRecommendations(data);
                 console.log(data);
             })
-            .catch((err) => alert(err));
+            .catch((err) => toast.error(err));
     };
 
     const deleteRecommendation = (id) => {
         api.delete(`/api/recommendation/delete/${id}`)
             .then((res) => {
-                if (res.status === 204) alert("Recommendation deleted! ");
-                else alert("Failed to delete recommendation. ");
+                if (res.status === 204) toast.info("Recommendation deleted! ");
+                else toast.error("Failed to delete recommendation. ");
                 getRecommendations();
             })
-            .catch((error) => alert(error));
+            .catch((error) => toast.error(error));
     };
 
     const createRecommendation = (e) => {
@@ -42,17 +43,18 @@ function Home() {
             num_results: numResults,
         })
             .then((res) => {
-                if (res.status === 201) alert("Recommendation created! ");
-                else alert("Failed to create recommendation. ");
+                if (res.status === 201)
+                    toast.success("Recommendation created! ");
+                else toast.error("Failed to create recommendation. ");
                 getRecommendations();
             })
-            .catch((err) => alert(err));
+            .catch((err) => toast.error(err));
     };
 
     return (
         <div className="container max-w-3xl mx-auto px-4 py-8">
             <h2 className="text-3xl font-bold mb-6">Create a Recommendation</h2>
-            <form onSubmit={createRecommendation} className="space-y-6">
+            <form onSubmit={createRecommendation} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
                 {/* Seed Type */}
                 <div>
                     <label
@@ -94,12 +96,21 @@ function Home() {
                         value={seed}
                         onChange={(e) => setSeed(e.target.value)}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="SongName/ArtistName/Genre"
+                        placeholder="e.g. Hey Jude by the Beatles, Taylor Swift, Alt-Rock"
                     />
+                    <p
+                        id="helper-text-explanation"
+                        class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                    >
+                        Must exist on Spotify.
+                    </p>
                 </div>
 
                 {/* Number of Results */}
-                <RangeSlider numResults={numResults} setNumResults={setNumResults}/>
+                <RangeSlider
+                    numResults={numResults}
+                    setNumResults={setNumResults}
+                />
 
                 {/* Submit Button */}
                 <div>
@@ -111,8 +122,10 @@ function Home() {
                 </div>
             </form>
 
-            <div className="container mx-auto p-4">
-            <h2 className="text-3xl font-bold mb-6 mt-10">Recommendations</h2>
+            <div className="container mx-auto">
+                <h2 className="text-3xl font-bold mb-6 mt-10">
+                    Recommendations
+                </h2>
                 {recommendations.map((recommendation) => (
                     <div key={recommendation.id}>
                         <RecommendationItem
