@@ -16,7 +16,9 @@ function RangeSlider({ numResults, setNumResults }) {
                 value={numResults}
                 onChange={(e) => setNumResults(parseInt(e.target.value))}
                 style={{
-                    background: `linear-gradient(to right, #1ED760  ${(numResults - 1) * 100 / 9}%, #e0e0e0 ${(numResults - 1) * 100 / 9}%)`,
+                    background: `linear-gradient(to right, #1ED760  ${
+                        ((numResults - 1) * 100) / 9
+                    }%, #e0e0e0 ${((numResults - 1) * 100) / 9}%)`,
                 }}
                 className="w-full appearance-none h-2 rounded-full"
             />

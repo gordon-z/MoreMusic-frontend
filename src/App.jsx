@@ -68,7 +68,10 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                <NavBar isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized}/>
+                <NavBar
+                    isAuthorized={isAuthorized}
+                    setIsAuthorized={setIsAuthorized}
+                />
                 <Routes>
                     <Route
                         path="/"
