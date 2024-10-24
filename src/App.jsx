@@ -67,7 +67,7 @@ function App() {
 
     return (
         <>
-            <BrowserRouter>
+            <BrowserRouter basename="/MoreMusic-frontend">
                 <NavBar
                     isAuthorized={isAuthorized}
                     setIsAuthorized={setIsAuthorized}
