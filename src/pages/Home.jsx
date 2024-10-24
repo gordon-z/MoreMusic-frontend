@@ -79,7 +79,7 @@ function Home() {
                         </option>
                         <option value="track">Track</option>
                         <option value="artist">Artist</option>
-                        <option value="genre">Genre</option>
+                        {/* <option value="genre">Genre</option> */}
                     </select>
                 </div>
 
@@ -99,7 +99,7 @@ function Home() {
                         value={seed}
                         onChange={(e) => setSeed(e.target.value)}
                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="e.g. Hey Jude by the Beatles, Taylor Swift, Alt-Rock"
+                        placeholder="e.g. Hey Jude by the Beatles, Taylor Swift"
                     />
                     <p
                         id="helper-text-explanation"
