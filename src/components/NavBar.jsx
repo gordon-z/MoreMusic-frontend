@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useNavigate } from "react-router-dom";
+import MoreMusic_icon from "/MoreMusic_icon.svg";
 
 function NavBar({ isAuthorized, setIsAuthorized }) {
     const navigate = useNavigate();
@@ -17,7 +18,15 @@ function NavBar({ isAuthorized, setIsAuthorized }) {
         <nav className="bg-lime-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <div>
-                    <Link to="/" className="text-white text-lg font-bold">
+                    <Link
+                        to="/"
+                        className="flex items-center text-white text-lg font-bold"
+                    >
+                        <img
+                            src={MoreMusic_icon}
+                            alt="Logo"
+                            className="h-8 w-8 mr-2"
+                        />
                         MoreMusic
                     </Link>
                 </div>
