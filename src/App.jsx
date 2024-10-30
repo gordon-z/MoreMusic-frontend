@@ -13,11 +13,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login";
 
-// function Logout() {
-//     localStorage.clear();
-//     return <Navigate to="/login" />;
-// }
-
 function RegisterAndLogout() {
     localStorage.clear();
     return <Register />;
