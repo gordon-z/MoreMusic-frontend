@@ -8,6 +8,7 @@ function Form({ route, method, setIsAuthorized }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null)
     const navigate = useNavigate();
 
     const name = method === "login" ? "Login" : "Register";
@@ -29,7 +30,8 @@ function Form({ route, method, setIsAuthorized }) {
                 navigate("/login");
             }
         } catch (error) {
-            toast.error(error);
+            toast.error("Unable to login with provided credentials. ");
+            setError("Incorrect username or password. Please try again. ")
         } finally {
             setLoading(false);
         }
@@ -80,6 +82,13 @@ function Form({ route, method, setIsAuthorized }) {
                         "Submit"
                     )}
                 </button>
+
+                {/* Login Error Message */}
+                {error && (
+                    <div className="mt-4 p-4 bg-red-100 text-red-700 rounded-md">
+                        {error}
+                    </div>
+                )}
             </form>
         </div>
     );
