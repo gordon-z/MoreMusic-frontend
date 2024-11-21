@@ -1,9 +1,10 @@
 function Footer() {
     return (
-        <footer className="bg-gray-800 text-white py-4">
+        <footer className="bg-neutral-700 text-white py-4">
             <div className="container mx-auto text-center">
                 <p className="text-sm">
-                    © {new Date().getFullYear()} Website by Gordon Zhang. All Rights Reserved.
+                    © {new Date().getFullYear()} Website by Gordon Zhang. All
+                    Rights Reserved.
                 </p>
                 <div className="flex justify-center space-x-4 mt-2">
                     <a

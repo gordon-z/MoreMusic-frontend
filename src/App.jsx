@@ -64,27 +64,36 @@ function App() {
     return (
         <>
             <BrowserRouter basename="/MoreMusic-frontend">
-                <NavBar
-                    isAuthorized={isAuthorized}
-                    setIsAuthorized={setIsAuthorized}
-                />
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <ProtectedRoute isAuthorized={isAuthorized}>
-                                <Home />
-                            </ProtectedRoute>
-                        }
+                <div className="flex flex-col min-h-screen">
+                    <NavBar
+                        isAuthorized={isAuthorized}
+                        setIsAuthorized={setIsAuthorized}
                     />
-                    <Route
-                        path="/login"
-                        element={<Login setIsAuthorized={setIsAuthorized} />}
-                    />
-                    <Route path="/register" element={<RegisterAndLogout />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
+                    <div className="flex-grow">
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <ProtectedRoute isAuthorized={isAuthorized}>
+                                        <Home />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/login"
+                                element={
+                                    <Login setIsAuthorized={setIsAuthorized} />
+                                }
+                            />
+                            <Route
+                                path="/register"
+                                element={<RegisterAndLogout />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </div>
+                    <Footer />
+                </div>
             </BrowserRouter>
             <ToastContainer />
         </>
