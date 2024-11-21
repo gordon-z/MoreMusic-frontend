@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "./constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -83,6 +84,7 @@ function App() {
                     <Route path="/register" element={<RegisterAndLogout />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+                <Footer />
             </BrowserRouter>
             <ToastContainer />
         </>
