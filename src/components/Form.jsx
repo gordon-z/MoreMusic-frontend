@@ -8,7 +8,7 @@ function Form({ route, method, setIsAuthorized }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const name = method === "login" ? "Login" : "Register";
@@ -16,6 +16,10 @@ function Form({ route, method, setIsAuthorized }) {
     const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
+
+        const toastSlow = toast.info(
+            "May take a while due to hosting on Render's free tier..."
+        );
 
         try {
             const res = await api.post(route, { username, password });
@@ -31,7 +35,7 @@ function Form({ route, method, setIsAuthorized }) {
             }
         } catch (error) {
             toast.error("Unable to login with provided credentials. ");
-            setError("Incorrect username or password. Please try again. ")
+            setError("Incorrect username or password. Please try again. ");
         } finally {
             setLoading(false);
         }
